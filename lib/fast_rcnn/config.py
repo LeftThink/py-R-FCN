@@ -33,6 +33,8 @@ cfg = __C
 
 __C.TRAIN = edict()
 
+__C.TRAIN.CLASSES = ('__background__', 'car') 
+
 # Scales to use during training (can list multiple scales)
 # Each scale is the pixel size of an image's shortest side
 __C.TRAIN.SCALES = (600,)
@@ -58,7 +60,7 @@ __C.TRAIN.BG_THRESH_HI = 0.5
 __C.TRAIN.BG_THRESH_LO = 0.1
 
 # Use horizontally-flipped images during training?
-__C.TRAIN.USE_FLIPPED = True
+__C.TRAIN.USE_FLIPPED = False
 
 # Train bounding-box regressors
 __C.TRAIN.BBOX_REG = True
@@ -224,7 +226,7 @@ def get_output_dir(imdb, net=None):
     A canonical path is built using the name from an imdb and a network
     (if not None).
     """
-    outdir = osp.abspath(osp.join(__C.ROOT_DIR, 'output', __C.EXP_DIR, imdb.name))
+    outdir = osp.abspath(osp.join(__C.ROOT_DIR, __C.DATA_DIR, 'snapshot', __C.EXP_DIR, imdb.name))
     if net is not None:
         outdir = osp.join(outdir, net.name)
     if not os.path.exists(outdir):
